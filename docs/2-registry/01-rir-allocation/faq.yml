@@ -2,8 +2,8 @@ id: x-2-registry-01-rir-allocation
 
 data:
   - name:
-      en: Who hands out what
-      cn: 谁在分配什么
+      en: Who hands out what, and what that shape means
+      cn: 谁在分配什么，以及这种形状意味着什么
     qa:
       - id: which-rip
         question:
@@ -11,9 +11,9 @@ data:
       cn: 哪个注册机构发得最多？
         answer:
           en: >
-            It depends on what you count. RIPE NCC has the most ASNs (40,114) and the most IPv4 allocations (100,774). ARIN has fewer ASNs (33,123) but nearly as many IPv4 allocations (81,326) — bigger blocks, fewer operators. AFRINIC is smallest in both, which is the clearest argument for why regional registries exist at all.
+            RIPE NCC, in both columns: 40,114 ASNs and 100,774 IPv4 blocks. But the more interesting comparison is the shape. ARIN has fewer ASNs than RIPE (33,123) but nearly as many IPv4 blocks (81,326) — bigger blocks, fewer operators. LACNIC has more ASNs than APNIC on a third of the address space. AFRINIC is smallest in both, which is the clearest argument for why regional registries exist.
           cn: >
-            看你在数什么。RIPE NCC 的 ASN 最多（40,114），IPv4 分配条目也最多（100,774）。ARIN 的 ASN 少一些（33,123），IPv4 分配条目却接近（81,326）——块更大，运营者更少。AFRINIC 两项都最小，这恰恰是区域注册机构为何存在的最有力论据。
+            两列都是 RIPE NCC 最多：40,114 个 ASN、100,774 个 IPv4 块。但更有意思的是形状。ARIN 的 ASN 比 RIPE 少（33,123），IPv4 块却几乎一样多（81,326）—— 块更大、运营者更少。LACNIC 用三分之一的地址空间拿到了比 APNIC 更多的 ASN。AFRINIC 两项都最小，这正是区域注册机构存在的最有力论据。
         confidence: 10
         reference:
           - docs/2-registry/01-rir-allocation/en.md
