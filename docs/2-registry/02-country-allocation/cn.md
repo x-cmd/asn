@@ -13,28 +13,32 @@ ASN 同理，而且更明显：ASN 注册给一个组织，而这个组织可能
 ## APNIC 区域 IPv4 地址空间按国家
 
 ```text
-https://x-cmd.com/draw?type=hbar&labels=CN%2CKR%2CJP%2CIN%2CSG%2CAU%2CTW%2CID%2CVN%2CHK%2CTH%2CPK%2CPH%2CMY&values=214719744%2C57649152%2C54388992%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses
+https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=214719744%2C57649152%2C54393088%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728%2C2222848%2C1478656&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses
 ```
 
-<a href="https://x-cmd.com/draw?type=hbar&labels=CN%2CKR%2CJP%2CIN%2CSG%2CAU%2CTW%2CID%2CVN%2CHK%2CTH%2CPK%2CPH%2CMY&values=214719744%2C57649152%2C54388992%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses"><img src="https://x-cmd.com/draw?type=hbar&labels=CN%2CKR%2CJP%2CIN%2CSG%2CAU%2CTW%2CID%2CVN%2CHK%2CTH%2CPK%2CPH%2CMY&values=214719744%2C57649152%2C54388992%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses" width="780" alt=""></a>
+<a href="https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=214719744%2C57649152%2C54393088%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728%2C2222848%2C1478656&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses"><img src="https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=214719744%2C57649152%2C54393088%2C26313216%2C21224704%2C19878912%2C19008000%2C12987136%2C12063744%2C6200576%2C4043264%2C3815424%2C3424512%2C3337728%2C2222848%2C1478656&title=IPv4%20address%20space%20by%20country%20%28APNIC%20region%29&unit=addresses" width="780" alt=""></a>
 
 ## APNIC 区域 ASN 数量按国家
 
 ```text
-https://x-cmd.com/draw?type=hbar&labels=CN%2CIN%2CID%2CAU%2CBD%2CJP%2CHK%2CKR%2CVN%2CNZ%2CSG%2CPH%2CTH%2CPK&values=6397%2C6253%2C4027%2C2956%2C2022%2C1267%2C1180%2C1149%2C1049%2C694%2C682%2C656%2C604%2C470&title=ASNs%20per%20country%20%28APNIC%20region%29&unit=ASNs
+https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=6397%2C1149%2C1267%2C6253%2C682%2C2956%2C419%2C4027%2C1049%2C1180%2C604%2C470%2C656%2C390%2C694%2C2022&title=Autonomous%20systems%20per%20country%20%28APNIC%20region%29&unit=ASNs
 ```
 
-<a href="https://x-cmd.com/draw?type=hbar&labels=CN%2CIN%2CID%2CAU%2CBD%2CJP%2CHK%2CKR%2CVN%2CNZ%2CSG%2CPH%2CTH%2CPK&values=6397%2C6253%2C4027%2C2956%2C2022%2C1267%2C1180%2C1149%2C1049%2C694%2C682%2C656%2C604%2C470&title=ASNs%20per%20country%20%28APNIC%20region%29&unit=ASNs"><img src="https://x-cmd.com/draw?type=hbar&labels=CN%2CIN%2CID%2CAU%2CBD%2CJP%2CHK%2CKR%2CVN%2CNZ%2CSG%2CPH%2CTH%2CPK&values=6397%2C6253%2C4027%2C2956%2C2022%2C1267%2C1180%2C1149%2C1049%2C694%2C682%2C656%2C604%2C470&title=ASNs%20per%20country%20%28APNIC%20region%29&unit=ASNs" width="780" alt=""></a>
+<a href="https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=6397%2C1149%2C1267%2C6253%2C682%2C2956%2C419%2C4027%2C1049%2C1180%2C604%2C470%2C656%2C390%2C694%2C2022&title=Autonomous%20systems%20per%20country%20%28APNIC%20region%29&unit=ASNs"><img src="https://x-cmd.com/draw?type=hbar&labels=China%2CSouth%20Korea%2CJapan%2CIndia%2CSingapore%2CAustralia%2CTaiwan%2CIndonesia%2CVietnam%2CHong%20Kong%2CThailand%2CPakladesh%2CPhilippines%2CMalaysia%2CNew%20Zealand%2CBangladesh&values=6397%2C1149%2C1267%2C6253%2C682%2C2956%2C419%2C4027%2C1049%2C1180%2C604%2C470%2C656%2C390%2C694%2C2022&title=Autonomous%20systems%20per%20country%20%28APNIC%20region%29&unit=ASNs" width="780" alt=""></a>
 
-## 两种形状，讲两个故事
+## 两种形状，讲两个故事：
 
-**中国拿下该区域一半以上的 IPv4 空间** —— 在这个前 14 名的切面里，2.147 亿地址对约 3.5 亿 —— 但只有 6,397 个 ASN。地址池极大，而握在其中的路由运营者相对少。分配块大、集中度高：一个只有少数几家大运营商和云厂商握着空间、其余都是租用的市场，形状就是这样。
+**上面两张图用的是同一批国家、同一个顺序 —— 按 IPv4 地址空间降序。** 这是刻意的，也正是把它们并排放的意义：一个国家在一张图里靠前、在另一张图里靠后，本身就在说明问题。**请把它们当成一对来看，而不是两张独立的排名。**
 
-**印度恰好是镜像。** 6,253 个 ASN，几乎和中国一样多，却只分到 2,631 万地址。自治系统多，每个的地址少。这就是一个被切得很碎的 ISP 市场的样子：成千上万家区域运营商，每家一块不大的地址、一套自己的路由。
+**中国拿下该区域一半以上的 IPv4 空间** —— 在这个切面里，2.147 亿地址对约 3.5 亿 —— 但只有 6,397 个 ASN。地址池极大，而握在其中的路由运营者相对少。分配块大、集中度高：一个只有少数几家大运营商和云厂商握着空间、其余都是租用的市场，形状就是这样。
 
-**日本（1,267）和韩国（1,149）**相对各自的地址空间，比印度还要密：大型运营商加上发育良好的对等生态，以及大量各自路由的企业网络。
+**印度恰好是镜像。** 6,253 个 ASN，几乎和中国一样多，却只分到 2,631 万地址。它**按地址空间排第 4，按自治系统数排第 2**。自治系统多，每个的地址少：这就是一个被切得很碎的 ISP 市场 —— 成千上万家区域运营商，每家一块不大的地址、一套自己的路由。
 
-**孟加拉国（2,022 个 ASN）和印尼（4,027）**是同一模式的小号版本 —— 一个年轻、竞争激烈的 ISP 市场，独立运营者很多，而地址空间并不多。
+**印尼把这个特点推得更极端** —— 1,300 万地址撑 4,027 个 ASN。按地址空间第 8，按自治系统数第 3。
+
+**孟加拉国是最极端的一例。** 147 万地址撑 2,022 个 ASN：按地址空间第 16，而按 ASN 数**比日本、韩国、台湾三家加起来还多**。一个年轻、竞争激烈的 ISP 市场，而地址空间并不多。
+
+**同一根轴的另一端是日本（1,267）、台湾（419）和韩国（1,149）** —— 各自几千万地址，却只握着一两百到一千个自治系统。它们是这个区域里**最不碎片化**的路由市场：少数几家大运营商握着空间，并且自己路由。
 
 ## 有意思的是那个比值
 
