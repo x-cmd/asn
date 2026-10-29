@@ -1,0 +1,7 @@
+# Per-country rows from the APNIC delegated export (the only RIR that
+# publishes per-country rows inside the same file).
+# source: https://ftp.apnic.net/stats/apnic/delegated-apnic-latest
+# as_of: 2026-10-29
+# note:  ipv4 is ADDRESSES (sum of the value column), not block counts
+
+country: [{"cc":"CN","ipv4_addresses":214719744,"asns":6397},{"cc":"KR","ipv4_addresses":57649152,"asns":1149},{"cc":"JP","ipv4_addresses":54388992,"asns":1267},{"cc":"IN","ipv4_addresses":26313216,"asns":6253},{"cc":"SG","ipv4_addresses":21224704,"asns":682},{"cc":"AU","ipv4_addresses":19878912,"asns":2956},{"cc":"TW","ipv4_addresses":19008000,"asns":0},{"cc":"ID","ipv4_addresses":12987136,"asns":4027},{"cc":"VN","ipv4_addresses":12063744,"asns":1049},{"cc":"HK","ipv4_addresses":6200576,"asns":1180},{"cc":"TH","ipv4_addresses":4043264,"asns":604},{"cc":"PK","ipv4_addresses":3815424,"asns":470},{"cc":"PH","ipv4_addresses":3424512,"asns":656},{"cc":"MY","ipv4_addresses":3337728,"asns":0}]
