@@ -2,18 +2,18 @@ id: x-1-overview-01-about
 
 data:
   - name:
-      en: About this page
-      cn: 关于本页
+      en: Addresses, autonomous systems, and the five registries that hand them out
+      cn: 地址、自治系统，以及发放它们的那五个机构
     qa:
-      - id: what-is-this
+      - id: address-vs-asn
         question:
-      en: What is this page?
-      cn: 这个页面是什么？
+      en: What is the difference between an IP address and an ASN?
+      cn: IP 地址和 ASN 有什么区别？
         answer:
           en: >
-            It is the Shodan query facets, rendered as pictures. Shodan already lets you break any search down by 39 dimensions — country, port, ASN, OS, TLS fingerprint, SSH key, CVE, WAF and more. Those breakdowns come back as JSON, and JSON in an issue or a blog post is something people scroll past. Every figure here is the same breakdown, rendered, with the query left editable in the URL.
+            An address says where to deliver a packet; an ASN says which network announces the route to it. Routers do not carry addresses in their tables — they carry "to AS13335, via this neighbour". Every IP prefix belongs to exactly one ASN. The practical consequence: address space can be bought, transferred and resold, while an ASN cannot, because it is an identifier rather than a resource.
           cn: >
-            这是把 Shodan 的查询 facet 渲染成了图。Shodan 本来就能把任意一次搜索按 39 个维度拆开——国家、端口、ASN、操作系统、TLS 指纹、SSH 密钥、CVE、WAF 等等。这些分解结果是 JSON，而 JSON 放进 issue 或博客里，别人只会划过去。这里的每一张图都是同样的分解，只是渲染出来了，而且查询在 URL 里保持可编辑。
+            地址说明包该送到哪里；ASN 说明是哪个网络在广播通往那里的路由。路由器的表里装的不是地址，而是"到 AS13335，经由这个邻居"。每一个 IP 前缀都恰好属于一个 ASN。实际后果是：地址空间可以买卖、转让、转售，而 ASN 不行 —— 因为它是标识符而不是资源。
         confidence: 10
         reference:
           - docs/1-overview/01-about/en.md
