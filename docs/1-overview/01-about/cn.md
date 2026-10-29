@@ -48,11 +48,11 @@ IPv4 大约 43 亿个地址，IPv6 大约 (3.4 	imes 10^{38}) 个，大到我们
 
 ### 注册机构自己
 
-五个 RIR 是权威源头 —— 东西本来就是他们分出去的。每家都提供 whois、RDAP，以及一份机器可读的全量导出。
+五个 RIR 是权威源头，东西本来就是他们分出去的。每家都提供 whois、RDAP，以及一份机器可读的全量导出。
 
-- [RIPE whois](https://www.ripe.net/manage-ips-and-asns/db/) 与 [rdap.db.ripe.net](https://rdap.db.ripe.net/) —— 欧洲、中东、中亚
-- [ARIN RDAP](https://rdap.arin.net/registry/ip/8.8.8.8) 与 `whois.arin.net/rest/net/…` —— 北美
-- [APNIC whois](https://wq.apnic.net/) —— 亚太。注意参数是 `?searchtext=`，不是 `?ip=`
+- [RIPE whois](https://www.ripe.net/manage-ips-and-asns/db/) 与 [rdap.db.ripe.net](https://rdap.db.ripe.net/)，欧洲、中东、中亚
+- [ARIN RDAP](https://rdap.arin.net/registry/ip/8.8.8.8) 与 `whois.arin.net/rest/net/…`，北美
+- [APNIC whois](https://wq.apnic.net/)，亚太。注意参数是 `?searchtext=`，不是 `?ip=`
 - LACNIC 与 AFRINIC，结构相同
 
 whois 是这几家里最老也最耐用的：一个 telnet 端口、一套查询语法，输出是给人读的。RDAP 是它的继任者，同样的信息，走 HTTP 和 JSON，而且是 IANA 强制的标准。
@@ -75,9 +75,9 @@ whois 是这几家里最老也最耐用的：一个 telnet 端口、一套查询
 
 有两家值得单独说一句。
 
-**bgp.tools 的交互页有登录墙** —— `/as/`、`/prefix/`、`/api/query.js` 全都跳 `/login?must-login`。但有三个数据端点仍然免认证返回：`bgp.tools/table.jsonl`（23.5 MB、451,159 行）、`bgp.tools/asns.csv`（4.5 MB），以及 `map.bgp.tools/` —— 一个可以平移缩放的完整 IPv4 空间地图。他们的 robots.txt 对 ClaudeBot、GPTBot、OAI-SearchBot 等一律封杀，所以这个站点不碰他们的交互层和 API。
+**bgp.tools 的交互页有登录墙**，`/as/`、`/prefix/`、`/api/query.js` 全都跳 `/login?must-login`。但有三个数据端点仍然免认证返回：`bgp.tools/table.jsonl`（23.5 MB、451,159 行）、`bgp.tools/asns.csv`（4.5 MB），以及 `map.bgp.tools/`，一个可以平移缩放的完整 IPv4 空间地图。他们的 robots.txt 对 ClaudeBot、GPTBot、OAI-SearchBot 等一律封杀，所以这个站点不碰他们的交互层和 API。
 
-**bgp.he.net 的图其实画得不错** —— 六张图，外加一张服务端渲染的 AS-path 连通图。但它没有官方 API，没有批量导出，数据许可也不明确，已经有第三方在商业化抓取。要 BGP 数据，用 RIPEstat、RADb 和 RouteViews 替代。
+**bgp.he.net 的图其实画得不错**，六张图，外加一张服务端渲染的 AS-path 连通图。但它没有官方 API，没有批量导出，数据许可也不明确，已经有第三方在商业化抓取。要 BGP 数据，用 RIPEstat、RADb 和 RouteViews 替代。
 
 这一族里还有一个容易被忽略的：[iptoasn.com](https://iptoasn.com/) 把完整的 IP→ASN 映射做成下载文件，每小时刷新。它的公共 API 在 2020 年就下线了，但文件还在，依然免费。
 
@@ -87,7 +87,7 @@ whois 是这几家里最老也最耐用的：一个 telnet 端口、一套查询
 
 | 服务 | 要 key | 免费额度 | 返回什么 |
 |---|---|---|---|
-| [ip.guide](https://ip.guide/) | 不要 | 无公布上限 | 国家、城市、ASN、org、经纬度 —— 四段齐全 |
+| [ip.guide](https://ip.guide/) | 不要 | 无公布上限 | 国家、城市、ASN、org、经纬度，四段齐全 |
 | [ipwho.is](https://ipwho.is/8.8.8.8) | 不要 | 每客户端 IP 每天 1,000 次 | 国家、城市、ASN、ISP、经纬度、时区、货币 |
 | [ip-api.com](http://ip-api.com/json/8.8.8.8) | 不要 | 每 IP 每分钟 45 次 | 国家、地区、城市、ISP、AS、AS 名、时延。**仅 HTTP、仅非商用** |
 | [ipinfo.io](https://ipinfo.io/8.8.8.8/json) | Lite 版需免费 token | Lite 无限；老的免 token 接口 5 万/月，返回字段更少 | ASN、org、地理位置、邮编、时区、公司 |
@@ -98,7 +98,7 @@ whois 是这几家里最老也最耐用的：一个 telnet 端口、一套查询
 
 ### 命令行
 
-这个领域最常被引用的实现是 [github.com/nitefood/asn](https://github.com/nitefood/asn)：1,944 星的 Bash 脚本，MIT 许可，2026 年 10 月还在更新，Alpine、Debian、Homebrew、Nix、AUR、FreeBSD 都打包了它。它做的事比这里任何工具都多 —— AS 号、前缀、ISP、国家、上游链，每一跳都做 RPKI 校验，16 个命令行选项，背后接了 18 个数据源。
+这个领域最常被引用的实现是 [github.com/nitefood/asn](https://github.com/nitefood/asn)：1,944 星的 Bash 脚本，MIT 许可，2026 年 10 月还在更新，Alpine、Debian、Homebrew、Nix、AUR、FreeBSD 都打包了它。它做的事比这里任何工具都多，AS 号、前缀、ISP、国家、上游链，每一跳都做 RPKI 校验，16 个命令行选项，背后接了 18 个数据源。
 
 代价是八个系统包：`curl whois bind9-host mtr-tiny jq ipcalc grepcidr nmap ncat aha`。
 
@@ -125,13 +125,13 @@ Team Cymru 也支持 DNS（TXT 记录）和 bulk 模式。它给不了城市级�
 
 把四大家族放在一起看，同样的缺口在每一家里都出现。
 
-**它们都是一次问一句的工具。** 每一家都是「给我一个输入，还你一条记录」。而「法国的 IPv4 空间长什么样」「哪个国家的路由市场最碎」不是它们任何一个能接受的查询 —— 你得把几千行 whois 输出拽进表格工具里自己算。
+**它们都是一次问一句的工具。** 每一家都是「给我一个输入，还你一条记录」。而「法国的 IPv4 空间长什么样」「哪个国家的路由市场最碎」不是它们任何一个能接受的查询，你得把几千行 whois 输出拽进表格工具里自己算。
 
 **输出是表格或 JSON，从来不是一张图。** 这是数据模型决定的，不是偷懒：一次查询返回一条记录，而记录本身没有值得画的形状。
 
 **权威数据又放在别的地方。** 唯一批量、机器可读、权威的源是各 RIR 的 delegated 文件，用它就得自己写解析器。
 
-还有一点得说实话：做 AS 级拓扑图的站点并不少 —— Internet Health Report、BGPTrace、as-graph、bgpmap.net、APNIC REx、ISOC Pulse、CleanIP、SecViz，还有 CAIDA 自己的 AS Core 和 AS Reach。RIPEstat 一家就提供 86 个可嵌入的 widget。所以缺口不在「没人画」。
+还有一点得说实话：做 AS 级拓扑图的站点并不少，Internet Health Report、BGPTrace、as-graph、bgpmap.net、APNIC REx、ISOC Pulse、CleanIP、SecViz，还有 CAIDA 自己的 AS Core 和 AS Reach。RIPEstat 一家就提供 86 个可嵌入的 widget。所以缺口不在「没人画」。
 
 缺口在于：那些全是交互式应用。改一个参数就得到一个新页面，**你永远拿不到当前这张图的 URL**。而唯一把分布形状做对了的产品，ipinfo 的「Summarize IPs」，只服务于你自己粘进去的那串地址，没有一个版本是给「这个 RIR 的地址结构长什么样」用的。
 
@@ -139,9 +139,9 @@ Team Cymru 也支持 DNS（TXT 记录）和 bulk 模式。它给不了城市级�
 
 ### 一条需要知道的边界
 
-draw 一共十三种图：`pie bar hbar line area radar gauge scatter combo sankey qr archmap mindmap`。其中没有力导向的节点连线图，也就是说 AS-path 拓扑图我们不自己画 —— 交给 bgpmap.net，它生成的 Graphviz 图直接嵌进来就行。
+draw 一共十三种图：`pie bar hbar line area radar gauge scatter combo sankey qr archmap mindmap`。其中没有力导向的节点连线图，也就是说 AS-path 拓扑图我们不自己画，交给 bgpmap.net，它生成的 Graphviz 图直接嵌进来就行。
 
-`sankey` 才是有意思的那个，因为 AS 关系数据天生就是这个形状。CAIDA 每月发布一次，格式是 `provider|customer|-1` 和 `peer|peer|0` —— 一个带三分法的有向图，而三分法正是 sankey 画的。
+`sankey` 才是有意思的那个，因为 AS 关系数据天生就是这个形状。CAIDA 每月发布一次，格式是 `provider|customer|-1` 和 `peer|peer|0`，一个带三分法的有向图，而三分法正是 sankey 画的。
 
 ### 三个值得收藏的源
 
@@ -149,7 +149,7 @@ draw 一共十三种图：`pie bar hbar line area radar gauge scatter combo sank
 |---|---|---|
 | [bgpmap.net](https://bgpmap.net/) | 不要，免注册 | `POST /api/v1/snapshots {"resource":"1.1.1.0/24"}` 返回 origin AS、upstream、RPKI 状态，以及现成的 Graphviz SVG 与 PNG。批量一次最多 100 个 |
 | [api.routeviews.org](https://api.routeviews.org/) | 可选 | `/asn/{n}`、`/prefix/{cidr}`（含上报 peer 与 AS 路径）、`/rib/collectors`、`/collector/`（含坐标） |
-| [CAIDA AS Relationships](https://publicdata.caida.org/datasets/as-relationships/serial-1/) | 不要，公开下载 | 每月一份，1998-01 至今，AS 关系边表 —— 画 sankey 的原料 |
+| [CAIDA AS Relationships](https://publicdata.caida.org/datasets/as-relationships/serial-1/) | 不要，公开下载 | 每月一份，1998-01 至今，AS 关系边表，画 sankey 的原料 |
 
 ## 只想查一条记录？用这些
 
@@ -172,7 +172,7 @@ draw 一共十三种图：`pie bar hbar line area radar gauge scatter combo sank
 # 1. 拿到数据
 curl -s https://ftp.apnic.net/stats/apnic/delegated-apnic-latest
 
-# 2. 变成图表 URL —— 参数是明文的，AI 也能拼
+# 2. 变成图表 URL，参数是明文的，AI 也能拼
 ```text
 https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country
 ```
