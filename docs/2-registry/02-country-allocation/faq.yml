@@ -2,13 +2,13 @@ id: x-2-registry-02-country-allocation
 
 data:
   - name:
-      en: Address space and autonomous systems, country by country
-      cn: 按国家看地址空间与自治系统
+      en: "Address space and autonomous systems, country by country"
+      cn: "按国家看地址空间与自治系统"
     qa:
       - id: china-vs-india
         question:
-      en: China and India both appear near the top — with opposite shapes. Why?
-      cn: 中国和印度都在前列，但形状正好相反，为什么？
+          en: "China and India both appear near the top — with opposite shapes. Why?"
+          cn: "中国和印度都在前列，但形状正好相反，为什么？"
         answer:
           en: >
             China holds 214.7M IPv4 addresses across 6,397 autonomous systems; India holds 26.3M addresses across 6,253. China has the large address pools and the concentrated operators. India has a fragmented ISP market with many autonomous systems, each holding fewer addresses. Per million addresses that is roughly 30 ASNs for China against 238 for India — India's routing market is about eight times more fragmented.
