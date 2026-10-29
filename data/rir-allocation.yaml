@@ -1,0 +1,10 @@
+# Snapshot of the five RIR delegated statistics files.
+# source: https://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest
+#         https://ftp.apnic.net/stats/apnic/delegated-apnic-latest
+#         https://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest
+#         https://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-latest
+#         https://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-latest
+# as_of: 2026-10-29
+# note:  counts are ALLOCATIONS (blocks / ASNs), not address totals
+
+rir: [{"registry":"RIPE NCC","region":"Europe, Middle East, Central Asia","ipv4_allocations":100774,"asns":40114},{"registry":"ARIN","region":"North America","ipv4_allocations":81326,"asns":33123},{"registry":"APNIC","region":"Asia-Pacific","ipv4_allocations":58336,"asns":13981},{"registry":"LACNIC","region":"Latin America & Caribbean","ipv4_allocations":20450,"asns":16128},{"registry":"AFRINIC","region":"Africa","ipv4_allocations":5558,"asns":2821}]
