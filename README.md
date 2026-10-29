@@ -1,6 +1,10 @@
 # asn
 
-**Address space and autonomous systems, as plain URLs.** The internet is built out of two different kinds of number — addresses and autonomous system numbers — allocated by five regional registries under a chain that nobody outside the industry draws very often. Every chart below is a [x-cmd draw](https://github.com/x-cmd/draw) URL: the data lives in the link, server-rendered as SVG.
+**Address space and autonomous systems, as plain URLs.**
+
+Two kinds of number run the internet — **addresses** (where a packet goes) and **autonomous system numbers** (which network announces the route to it). They are allocated by five regional registries, down a chain that is documented in machine-readable files and drawn by almost nobody.
+
+This site reads those files and renders them as charts whose data lives in the URL.
 
 > Languages: English · 中文（每页双语；es / ja / de 待补）
 
@@ -16,31 +20,32 @@
 
 ## All pages
 
-### overview
+### Overview · 总览
 
 - [Addresses, autonomous systems, and the five registries that hand them out](docs/1-overview/01-about/en.md)
 
-### registry
+### The registries · 注册机构
 
 - [Who hands out what, and what that shape means](docs/2-registry/01-rir-allocation/en.md)
 - [Address space and autonomous systems, country by country](docs/2-registry/02-country-allocation/en.md)
 
 ## 中文页
 
-### overview
+### 总览
 
 - [地址、自治系统，以及发放它们的那五个机构](docs/1-overview/01-about/cn.md)
 
-### registry
+### 注册机构
 
 - [谁在分配什么，以及这种形状意味着什么](docs/2-registry/01-rir-allocation/cn.md)
 - [按国家看地址空间与自治系统](docs/2-registry/02-country-allocation/cn.md)
 
 ## How the charts work
 
-Each figure is a plain `https://x-cmd.com/draw?type=…` URL — rendered to a standalone SVG by [x-cmd/draw](https://github.com/x-cmd/draw). No JS runs on this page, the SVG is static, printable, and AI-readable: the parameters *are* the data, so the same URL can be edited to query something else.
+Every figure is a plain `https://x-cmd.com/draw?type=…` URL — rendered to a standalone SVG by [x-cmd/draw](https://github.com/x-cmd/draw). No JavaScript runs on this page; the SVG is static, printable, and AI-readable, because the parameters *are* the data.
 
-To make your own: run the CLI, then hand the output to draw — or let your AI agent do it with the [draw skill](https://raw.githubusercontent.com/x-cmd/draw/main/SKILL.md).
+To make your own: pull the delegated files (or ask `x ip calc`), then hand the numbers to draw — or let your AI agent do it with the [draw skill](https://raw.githubusercontent.com/x-cmd/draw/main/SKILL.md).
+
 
 ## Data sources
 
