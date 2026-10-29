@@ -2,18 +2,18 @@ id: x-2-registry-02-country-allocation
 
 data:
   - name:
-      en: Address space and ASNs, country by country
-      cn: 按国家看地址空间与 ASN
+      en: Address space and autonomous systems, country by country
+      cn: 按国家看地址空间与自治系统
     qa:
       - id: china-vs-india
         question:
-      en: China and India both appear at the top — but with opposite shapes. Why?
+      en: China and India both appear near the top — with opposite shapes. Why?
       cn: 中国和印度都在前列，但形状正好相反，为什么？
         answer:
           en: >
-            China holds 214.7M IPv4 addresses across 6,397 autonomous systems; India holds 26.3M addresses across 6,253. China has the large address pools and the concentrated operators. India has a fragmented ISP market with many autonomous systems, each holding fewer addresses. The ASN-to-address ratio is a decent proxy for how fragmented a country's routing market is.
+            China holds 214.7M IPv4 addresses across 6,397 autonomous systems; India holds 26.3M addresses across 6,253. China has the large address pools and the concentrated operators. India has a fragmented ISP market with many autonomous systems, each holding fewer addresses. Per million addresses that is roughly 30 ASNs for China against 238 for India — India's routing market is about eight times more fragmented.
           cn: >
-            中国用 6,397 个自治系统持有 2.147 亿个 IPv4 地址；印度用 6,253 个自治系统只持有 2,631 万个。中国是地址池大、运营者集中；印度是 ISP 市场被切得很碎，自治系统多而每个分到的地址少。ASN 数与地址数的比值，是衡量一个国家路由市场碎片化程度的好指标。
+            中国用 6,397 个自治系统持有 2.147 亿个 IPv4 地址；印度用 6,253 个自治系统只持有 2,631 万个。中国是地址池大、运营者集中；印度是 ISP 市场被切得很碎，自治系统多而每个分到的地址少。按每百万地址算，中国约 30 个 ASN，印度约 238 个 —— 印度的路由市场碎度大约是中国的八倍。
         confidence: 10
         reference:
           - docs/2-registry/02-country-allocation/en.md
