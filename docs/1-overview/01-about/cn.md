@@ -54,12 +54,13 @@ IPv4 大约有 43 亿个地址。IPv6 大约有 (3.4 	imes 10^{38}) 个 —— �
 
 五个 RIR 各自提供 whois、RDAP 和批量导出：
 
-| 来源 | 提供什么 | 门槛 |
-|---|---|---|
-| [RIPE whois / RDAP](https://www.ripe.net/manage-ips-and-asns/db/) · [rdap.db.ripe.net](https://rdap.db.ripe.net/) | 该 RIR 分配的一切记录 | 免 key，但要懂查询语法 |
-| [ARIN RDAP](https://rdap.arin.net/registry/ip/8.8.8.8) | 北美的地址段与 ASN | 免 key |
-| [APNIC / LACNIC / AFRINIC whois](https://wq.apnic.net/) | 各自的分配记录 | 免 key |
-| 五个 RIR 的 `delegated-*-latest` 文件 | **批量、机器可读、权威** | 直接下载，无限流 |
+| 来源 | 提供什么 | 门槛 | 实测（2026-10-29） |
+|---|---|---|---|
+| [RIPE whois / RDAP](https://www.ripe.net/manage-ips-and-asns/db/) · [rdap.db.ripe.net](https://rdap.db.ripe.net/) | 该 RIR 分配的一切记录 | 免 key，但要懂查询语法 | ✅ 可用；RIPE DB 有明确配额（每 IP 1000/24h、最多 3 并发） |
+| [ARIN RDAP](https://rdap.arin.net/registry/ip/8.8.8.8) · `whois.arin.net/rest/net/…` | 北美的地址段与 ASN | 免注册 | ✅ 可用；官方 PPM 写明约 10 qps，超限查询被 tar-pit 隔离 |
+| [APNIC whois](https://wq.apnic.net/) | 亚太的分配记录 | 免 key | ✅ 可用（参数是 `?searchtext=`，不是 `?ip=`） |
+| LACNIC / AFRINIC whois | 各自的记录 | 免 key | ✅ 可用 |
+| 五个 RIR 的 `delegated-*-latest` | **批量、机器可读、权威、每日更新** | 直接下载，无限流 | ✅ RIPE 18 MB / ARIN 13 MB / APNIC 9 MB / LACNIC 4.6 MB / AFRINIC 1 MB |
 
 whois 是最古老也最耐用的那一条：它没有 API，只有一个 telnet 端口和一条查询语法，输出是给人看的文本。RDAP 是它的继任者，把同样的东西变成了 HTTP + JSON，并且是 IANA 强制的标准。
 
@@ -69,38 +70,71 @@ whois 是最古老也最耐用的那一条：它没有 API，只有一个 telnet
 
 | 服务 | 提供什么 | 门槛 | 实测（2026-10-29） |
 |---|---|---|---|
-| [RIPEstat](https://stat.ripe.net/) | RIPE 的大规模统计 API：路由表规模、宣告前缀、ASN 概览、RIR 分配、BGP 可见性…… 数十个 data call | **完全免费、免 key、无速率限制** | ✅ 直接可用 |
-| [bgp.tools](https://bgp.tools/) | 最好用的 ASN 页面：前缀、上下游、RPKI、IRR | ⚠️ **现在跳登录页**（307 → `/login?must-login`） | ❌ 需登录 |
-| [bgp.he.net](https://bgp.he.net/) | Hurricane Electric BGP Toolkit：ASN → 前缀 → 互联网全貌 | ⚠️ **同样跳登录页** | ❌ 需登录 |
-| [PeeringDB](https://www.peeringdb.com/api/net) | 网络与 IXP 的机读数据库（谁和谁互联） | 免 key，JSON | ✅ 可用 |
-| [CAIDA AS Rank](https://asrank.caida.org/) | 按流量给 AS 排名 | 免 key | ✅ 可用 |
+| [RIPEstat](https://stat.ripe.net/) | 60+ 数据集：路由表规模、宣告前缀、ASN 概览、邻居与**邻居历史**、RPKI 校验、**BGPlay 动画 AS-path**、CAIDA 关系、地址转让历史… | **完全免费、免 key、官方原文「无请求总量限制」**，每 IP 8 并发 | ✅ 直接可用 |
+| [bgp.tools](https://bgp.tools/) | 最好用的 ASN 页面：前缀、上下游、peer、RPKI、IRR、IXP | ⚠️ **交互层已登录化**（`/as/`、`/prefix/`、`/api/query.js` 全 307 → `/login?must-login`） | ❌ 交互需登录 |
+| [bgp.he.net](https://bgp.he.net/)（HE BGP Toolkit） | ASN 前缀表、peers、upstreams、**RPKI + ASPA**、IRR、反向 whois、11 份互联网统计报告 | 免费，**免注册** | ⚠️ **无官方 API**（`bgp.he.net/AS13335.json` → 404，网传端点并不存在） |
+| [PeeringDB](https://www.peeringdb.com/api/net) | 网络 35,779 / IXP 1,332 / 设施 5,885 / 运营商 288，含 IXP switchboard | 读免注册 | ✅ 匿名 20 次/分；认证用 `Authorization: Api-Key <KEY>` |
+| [RADb](https://www.radb.net/) | IRR 对象库，**RPKI ROA 镜像也进 IRR** | whois 43 端口**免费、匿名、免注册** | ✅ REST 校验端点免认证可用（`/search` 需付费订阅 $595/年） |
+| [RouteViews](https://www.routeviews.org/) | 全球路由表快照、MRT 原始转储（2001.10 至今）、采集器清单 | ✅ 免认证 JSON API | ✅ guest **1 req/s**，带 key 10 req/s |
+| [CAIDA AS Rank](https://asrank.caida.org/) | 按流量给 AS 排名、cone 分解、**AS 关系图（带 relationship + numberPaths）** | 免 key，GraphQL v2 | ✅ 可用（122,962 个 AS） |
+| [bgpview.io](https://bgpview.io/) | — | — | ❌ **已死**：三个解析器均 0 A 记录，GitHub 仓 404，MISP 记为 2025-11-26 永久关闭 |
 
-> **值得注意的一个变化**：bgp.tools 和 bgp.he.net 这两个最经典的 BGP 查询站，现在都要求登录了。它们的免费价值曾经是它们被广泛引用的原因，而这个价值正在消失。**任何不依赖登录的替代方案因此变得更有价值** —— RIPEstat 就是其中最好的一个，而且它完全不需要 key。
+> **三个必须记下的事实：**
+>
+> **① bgp.tools 的登录墙不是全站。** 交互查询确实要登录，但三个数据端点**仍然免认证返回 200**：
+> `https://bgp.tools/table.jsonl`（**23.5 MB / 451,159 行**，字段 `CIDR`/`ASN`/`Hits`）、`https://bgp.tools/asns.csv`（**4.5 MB**，`asn,name,class,cc`）、`https://map.bgp.tools/`（**全 IPv4 空间可平移缩放的交互地图**）。
+>
+> **② 但 bgp.tools 的 robots.txt 对 AI agent 是明确封杀的**：对 `ClaudeBot`、`ChatGPT-User`、`GPTBot`、`OAI-SearchBot`、`Amazonbot` 等一律 `Disallow: /`，站点还要求 UA 携带 LLM 标识与联系邮箱。**这是合规红线 —— 不碰它的交互层和 API。** 真要用，只用上面那两个静态数据文件，并在文档里写明出处与快照日期。
+>
+> **③ bgp.he.net 有图，但没有 API。** 它页面里确实有 **6 张 Chart.js 图表**（IPv4/IPv6 Peer Count、Prefixes Announced、Prefixes Originated）和服务端渲染的 Graph v4/v6 AS-path 连通图 —— 但**没有官方 API，也没有批量导出，数据许可也不明确**。第三方已经在商业化抓取它。**要 BGP 数据就用 RIPEstat + RADb + RouteViews 替代。**
 
 ### 第三条路：商业 IP 情报 API（查一个 IP 的属性）
 
-| 服务 | 免 key？ | 免费额度 | 返回什么 |
+| 服务 | 免 key？ | 免费额度（已查证） | 返回什么 |
 |---|---|---|---|
-| [ipwho.is](https://ipwho.is/8.8.8.8) | ✅ | 无明确限制 | 国家、城市、ASN、ISP、经纬度、时区、货币 |
-| [ip-api.com](http://ip-api.com/json/8.8.8.8) | ✅ | 免费层 45 次/分钟 | 国家、地区、城市、ISP、AS、AS 名称、延迟、时区 |
-| [ipinfo.io](https://ipinfo.io/8.8.8.8/json) | ⚠️ 基础查询可以 | 每月 5 万次（需 token 才有完整字段） | ASN、组织、地理位置、邮编、时区、公司 |
-| [ipapi.co](https://ipapi.co/) · [ipdata.co](https://ipdata.co/) · [ipquery.io](https://ipquery.io/) | 多数有免费层 | 各不相同 | 同类字段 |
+| [ip.guide](https://ip.guide/) | ✅ | 无公布上限 | 国家、城市、ASN、org、经纬度 —— **四段齐全** |
+| [ipwho.is](https://ipwho.is/8.8.8.8) | ✅ | **1,000 次/天/客户端 IP** | 国家、城市、ASN、ISP、经纬度、时区、货币 |
+| [ip-api.com](http://ip-api.com/json/8.8.8.8) | ✅ | **45 req/min/IP** | 国家、地区、城市、ISP、AS、AS 名、延迟、时区。**仅 HTTP、仅非商用** |
+| [ipinfo.io](https://ipinfo.io/8.8.8.8/json) | ⚠️ Lite 需免费 token | **Lite 无限**（含 country + basic ASN）；老接口免 token 50k/月但返回受限数据 | ASN、org、地理位置、邮编、时区、公司 |
+| [ipdata.co](https://ipdata.co/) | ✅ `ipdata.free` | **1,000 次城市级/天**（国家 + ASN 无限） | ASN + org + 城市 |
+| [ipquery.io](https://ipquery.io/) | ✅ | 宣称无限（无数值） | ISP、ASN、org |
+| [ipapi.co](https://ipapi.co/) | ❌ 429 门禁 | 试用 30,000/月但 ≤1,000/天，需**工作邮箱**申请 | ASN + org |
+| [ipstack](https://ipstack.com/) / [ipapi.com](https://ipapi.com/) | ❌ 必须注册 | **100 次/月**，免费档**没有 ASN 字段**、仅 HTTP | 地理位置 |
+| [IPQualityScore](https://www.ipqualityscore.com/) | ❌ 必须注册 | 1,000 credits/月 + 35 次/天 | ASN（字段在 IP Reputation 响应里） |
+| [MaxMind](https://www.maxmind.com/) | ❌ 需 license key | GeoLite2 ASN 免费库仍在 | ⚠️ **付费的「GeoIP2 ASN Database」页面已 404**，ASN 数据并入 **GeoIP ISP Database**；且 **MaxMind 没有 ASN web service**（`geoip.maxmind.com/geoip/v2.1/asn/…` → 404，ASN 字段在 `traits` 里） |
 
 这一路解决的是「这个 IP 在哪、属于谁」，而不是「这个地址段被谁分配过」。它们的返回结构高度相似，因为大家抄的是同一份 GeoIP 数据源。
 
-### 第四条路：命令本身
+**还有一个免费但少人用的宝藏**：[iptoasn.com](https://iptoasn.com/) 的全量数据文件（`ip2asn-combined.tsv.gz` 9 MB / v4 7 MB / v6 2 MB，**每小时更新**）。它的公共 API 已于 2020-12-31 下线，只剩下载 —— 但下载本身完全免费免注册。
 
-系统自带和开源生态里已经有的：
+### 第四条路：命令与库
 
-| 工具 | 做什么 |
-|---|---|
-| `whois` | 查询注册记录（各 RIR 的语法不同） |
-| `host` / `dig` | DNS 解析与 PTR 反查 —— **PTR 反查常常就是最快的 ASN 归属线索** |
-| `mtr` / `traceroute` | 路径，以及沿途的 ASN |
-| `ip`（iproute2） | 本地地址与路由表 |
-| [github.com/nitefood/asn](https://github.com/nitefood/asn) | Go 写的 ASN 查询库 —— **Adriano 自己的那个**，也是这个站点存在的原因 |
+**参照物是 [github.com/nitefood/asn](https://github.com/nitefood/asn) —— 它不是 Go 库，而是一个 1,944★ 的 Bash 脚本**（Shell 98.4%），MIT 许可，2026-10 仍在更新，被 Alpine / Debian / Homebrew / Nix / AUR 打包，是这个领域的事实标准。它的能力最全（ASN、前缀、ISP、国家、上游链、**每跳 RPKI 校验**），选项有 16 项（`-t` trace / `-n` 只查 / `-s` Shodan 扫描 / `-l` server 模式 / `-j` JSON…），数据源接了 18 个服务。
 
-x-cmd 侧已经有对应的模块：`x ip`（`calc` / `cidr` / `map` / `addr` / `scan`）、`x whois`、`x dns`、`x ping` / `x tping`、`x route`、`x nets`。**但没有 `x asn`** —— 而这正是这个站点要补的那一块。
+**但它要装 8 个系统包**：`curl whois bind9-host mtr-tiny jq ipcalc grepcidr nmap ncat aha`。而且它**只给查询，不给分布**。
+
+其他值得知道的：
+
+| 工具 | 语言 | ★ | 做什么 |
+|---|---|---|---|
+| [nexttrace](https://github.com/nxtrace/NTrace-core) | Go | **8,254** | 本领域 star 最高。traceroute，每跳给 IP / 时延 / ASN / 地理位置；`--from<国家>` 走 Globalping 选点 |
+| [ttl](https://github.com/lance0/ttl) | Rust | 1,489 | 「更好的 mtr」，每跳 ASN + geo，ECMP 检测、MPLS 解析 |
+| [asnmap](https://github.com/projectdiscovery/asnmap) | Go | **1,145** | **反向**：ASN/ORG → CIDR。⚠️ **现已需 PDCP API key** |
+| [asname](https://github.com/flyingllama87/asname) | Go | 0（2026-08 新建） | 离线 LC-trie，IP/主机 → ASN + AS 名 + 国家，`--rest` 可起服务。**形态最接近「一条命令四合一」** |
+| [aslookup](https://github.com/nieldk/aslookup) | C | 0 | **零外部命令依赖**（libcurl + libcjson + libresolv） |
+| [asnlookup](https://github.com/viktb/asnlookup) | Go | 21 | 纯离线 IP→ASN，LC-trie |
+| [pyasn](https://github.com/hadiasghari/pyasn) | Python | 330 | IP→ASN，还支持**基于历史 BGP dump 的历史归属查询** |
+
+系统自带里最有价值的一条是 **`whois`**：
+
+```sh
+whois -h whois.cymru.com " -v 8.8.8.8"
+# 15169 | 8.8.8.0/24 | US | arin | 2023-12-28 | GOOGLE - Google LLC, US
+```
+
+Team Cymru 免费、永久、免注册，还有 DNS（TXT）和 bulk 三种接口。**但它只给到国家级，没有城市级地理**，而且官方明确说明国家码来自注册机构记录，与 IP 实际使用地常差很多。
+
+x-cmd 侧已经有 `x ip`（`cidr` / `map` / `iter` / `addr` / `query` / `scan`）、`x dns`、`x ping` / `x tping`、`x route`、`x nets`。**没有 `x asn`，也没有 `x whois`** —— 这正是这个站点要补的那一块。
 
 ---
 
@@ -114,11 +148,41 @@ x-cmd 侧已经有对应的模块：`x ip`（`calc` / `cidr` / `map` / `addr` / 
 
 **③ 一个完整的视图要跨好几个站。** 想看「我这段地址在 BGP 里由谁宣告」要开 RIPEstat；想看「这个 ASN 有多活跃」要开 bgp.tools；想看「这个 IP 在哪」要开 ipinfo。三家，三套账号，三种限制。
 
-**④ 权威数据和易用数据是分开的。** 唯一批量、机器可读、权威的来源是五个 RIR 的 delegated 文件 —— 但那需要你自己写解析器。
+**④ 权威数据和易用数据是分开的。** 唯一批量、机器可读、权威的源是五个 RIR 的 delegated 文件 —— 但那需要你自己写解析器。
 
-**所以 x-cmd/asn 的位置不是「又一个 whois」，而是：**
+### 但要说清楚：**做可视化的站点其实不少**
 
-> 把最权威、最难拿到的那份数据（五个 RIR 的 delegated 导出），变成**不需要写解析器就能看懂的图**，并且让每一张图的**查询可以自己换**。
+这一点必须诚实。做 **AS 级拓扑图**（力导向、节点连线）的站点至少有九个：Internet Health Report（Plotly + D3 + **Sankey**）、BGPTrace（vis-network + Chart.js + ECharts）、as-graph（Graphviz→JS）、bgpmap.net（Graphviz SVG/PNG）、APNIC REx（D3）、ISOC Pulse（Vega + Leaflet）、CleanIP、SecViz、以及 CAIDA 的 AS Core / AS Reach。RIPEstat 自己就有 **86 个可嵌入 widget** 加 BGPlay 动画 AS-path 图。bgp.he.net 也有 6 张 Chart.js 图。
+
+**所以真正的空白不是「没人画 ASN 图」，而是下面这三条：**
+
+> **① A 类（拓扑图）全是交互式应用，不是可分享的静态产物。** 用户看到一张「我的 AS 路径图」后想改一个参数，只能刷新页面重新交互 —— **拿不到「这张图的 URL」**。
+>
+> **② B 类（分布图）只有 ipinfo 一家做对了形态**，而它只服务于「你自己粘进去的 IP 列表」，**没有面向「某个 RIR 的地址结构」「某个 ASN 的全球分布」「AS 关系图」这类公共议题的版本**。
+>
+> **③ 没有任何一个把 CAIDA AS Rank / AS Relationships / RIPEstat / RIR delegated 这些权威数据变成「参数即 URL 的公共图」。**
+
+而 x-cmd/draw 的模型恰恰是 `https://x-cmd.com/draw?type=…&labels=…&values=…` —— **改一个参数就是换一张图**，SVG 内嵌 `<metadata>{generator,template,version,spec}</metadata>` 保证数据无损往返。**这就是「可分享、可复现、可参数化」的公共图**，而上面九家一个都不是。
+
+### 一条必须守住的技术边界
+
+**draw 支持的 13 种图是**：`pie bar hbar line area radar gauge scatter combo sankey qr archmap mindmap`。**它没有力导向节点连线图** —— 也就是上面 A 类那一种。
+
+所以分工很清楚：
+
+- ✅ **B 类（分布图）是 draw 的主场** —— pie / hbar / radar / scatter / combo 全部现成。
+- ✅ **`sankey` 正好对应「provider / peer / customer」的三分关系** —— CAIDA AS Relationships 的原生格式就是 `provider|customer|-1` 和 `peer|peer|0`，**它天生就是这个数据的形状**。
+- ⚠️ **A 类（AS-path 拓扑图）draw 做不了** —— 想自研要另起渲染器，成本远高于收益。**只引用不自研**：把 bgpmap.net 现成的 Graphviz SVG 嵌进文档就行。
+
+**所以 x-cmd/asn 应主攻分布图与关系 sankey，拓扑图只做引用。**
+
+### 本次挖到的三个免费优质数据源
+
+| 源 | 免 key？ | 产出 | 适合哪张图 |
+|---|---|---|---|
+| **[bgpmap.net](https://bgpmap.net/)** | ✅ **免注册免 key** | `POST /api/v1/snapshots {"resource":"1.1.1.0/24"}` → origin_asns / upstreams / **rpki_state** / **自带 Graphviz SVG + PNG**；批量 ≤100 | AS-path 拓扑（**直接引用它的 SVG**） |
+| **[api.routeviews.org](https://api.routeviews.org/)** | ✅ guest | `/asn/{n}`、`/prefix/{cidr}`（含 `origin_asn` / `rpki_state` / `reporting_peers[].as_path`）、`/rib/collectors`、`/collector/`（含经纬度）、`/rib/adjacent-asn` | 前缀宣告、可见度、采集器地理 |
+| **[CAIDA AS Relationships](https://publicdata.caida.org/datasets/as-relationships/serial-1/)** | ✅ 公开下载 | 月度 `YYYYMMDD.as-rel.txt.bz2`（**1998-01 至今**），格式 `provider|customer|-1` / `peer|peer|0` | **`sankey` 的原生输入** |
 
 ---
 
@@ -136,30 +200,35 @@ x-cmd 侧已经有对应的模块：`x ip`（`calc` / `cidr` / `map` / `addr` / 
 
 | 候选 | 数据源 | 为什么成立 | 优先级 |
 |---|---|---|---|
-| **x-cmd.com/whois**（或 /rdap） | 五个 RIR 的 whois + RDAP，免 key | 和 asn 同一批数据源的另一面；**RDAP 是 IANA 强制的标准，whois 是事实上的标准**，而两者现在都需要手工拼查询串 | 高 |
-| **x-cmd.com/ip** | 无需外部数据 —— `x ip calc` / `cidr` / `map` 本身 | **完全不需要新数据源**，纯算法；CIDR 切分、子网划分、VLSM、地址换算这类题目网上全是，但没有一个把「怎么算」讲清楚的图解 | 高 |
-| **x-cmd.com/dns** | `x dns` + 公开解析器 | 仓库已存在（x-cmd/dns），只差内容；全球解析一致性、DNS 记录类型、TTL 行为都是真实问题 | 中高 |
-| **x-cmd.com/kev** | CISA KEV CSV（公开、免 key、每天更新） | 已经作为 shodan 站的一页存在；单独成站也成立 —— 它是一份**监管指令清单**，用图表化呈现的价值独立于 Shodan | 中 |
-| **x-cmd.com/bgp** | RIPEstat（免 key）+ 各 RIR 的 route 导出 | BGP 路由表规模、宣告前缀数、可见性 —— 全部是公开可复现的，而且**有天然的时间序列**（每月一个点） | 中 |
-| **x-cmd.com/ossinsight** | GitHub 公开事件流 | `x ossinsight` 已经能吐 CSV；开源生态的年度/语言/仓库排行是真实需求 | 中 |
+| **x-cmd.com/asn 续建** | 5 个 RIR delegated + CAIDA AS Rank（GraphQL）+ CAIDA AS Relationships + RIPEstat `announced-prefixes` | 数据源已验证免费免 key；**新增三章**：一个 AS 的形状（cone/degree 三分 → `pie`）、谁在上游（provider/customer/peer → **`sankey`**）、宣告前缀的时间线（`announced-prefixes` 直接带 `timelines` → `line`） | **最高** |
+| **x-cmd.com/bgp** | RIPEstat + RouteViews + bgpmap.net + RADb + CAIDA | 「这个前缀是谁宣告的 / RPKI 状态如何 / 可见度多少」都是真问题 | 高。⚠️ **但定位必须收窄**：不做实时 looking glass（要自建 BGP 采集，成本量级完全不同），只做「用公开可复现数据能回答的问题」 |
+| **x-cmd.com/whois**（或作为 asn 的子组） | 五个 RIR whois + RDAP | RDAP 返回结构化对象 → 「注册链条」（IANA→RIR→LIR→ISP→客户）的 `sankey` 是教科书级的图 | 中高。💡 **更省事的是并入 asn 作为一组**：数据源重叠、读者重叠、搜索意图重叠，拆站会稀释 |
+| **x-cmd.com/ip** | 无需外部数据 —— `x ip` 本身 | **完全不需要新数据源**，纯算法 | 中。⚠️ **前提是先修 `x ip calc`**（见下）。定位应是「地址空间的形状」（IPv6 的分配算术、CGNAT 为什么存在、地址分类各占多少），不是「CIDR 计算教程」 |
+| **x-cmd.com/kev** | CISA KEV CSV | 一份**监管指令清单**，图表化价值独立于 Shodan | 中。⚠️ **建议并入 x-cmd.com/cve 作为一组** —— `/cve` 已存在且已有 7 篇，另起 `/kev` 会抢同一批读者和关键词 |
 
 ### 谨慎的
 
 | 候选 | 为什么存疑 |
 |---|---|
-| **x-cmd.com/cve** | **已经存在**（[x-cmd/cve](https://github.com/x-cmd/cve) → x-cmd.com/cve，“CVE for AI builders”），不要重复建 |
-| **x-cmd.com/uptime** · **/seo** | 仓库已存在但子页面**尚未上线**（线上 404）；先确认它们的内容是否还是活的，再决定是救活还是重做 |
+| **x-cmd.com/dns** | ⚠️ **内容与模块能力不匹配**。`x-cmd/dns` 仓**没有 docs/**（是 workspace 配置仓），而 `mod/dns` **不做解析查询** —— 只配 resolver + 拉 provider 目录。要么先给 `mod/dns` 加解析能力，要么把选题改成「DNS 生态与公共 resolver 目录」（不需要新模块） |
+| **x-cmd.com/uptime** · **/seo** | 仓库已存在（都带 README.cn.md / SKILL.md / docs/）但**尚未上线**（线上 404）。先确认内容是否还活，再决定救活还是重做 |
 | **x-cmd.com/geolocation** | 商业 API 的字段几乎完全同质，做不出差异 |
-| **x-cmd.com/traceroute** | 路径数据没有稳定的公开批量来源；每一跳的时延也无法复现 |
+| **x-cmd.com/rdap**（独立站） | 与 whois / asn 三方重叠，并入即可 |
 
 ### 不该做的
 
 这一条同样重要：
 
-- **每天都在变、且无法固定快照的数据** —— 一次性的「今日热门 IP」这类页面，明天就过期，而子页面的价值恰恰来自**可以引用**（「2019 年的这张图」是有意义的，「今天的这张图」不是）。
-- **只有列表、没有形状的数据** —— 例如一个 5000 条的 whois 全表。能画出来不代表值得画。
-- **需要 key 才能复现的数据** —— 除非是给合作方专用的子页面（像 shodan 那样），否则等于把内容锁死。
-- **和已有页面重复的** —— 做之前先看 `x-cmd.com` 上已经有什么：目前已上线的是 `dbnomics`、`cve`、`cwe`、`gpg`、`ratelimit`、`skill0`、`ai`、`action`、`install`、`mod`、`pkg`、`theme`。
+- **每天/每次都变、且无法固定快照的数据** —— 「今日热门 IP」这类页面明天就过期，而子页面的价值恰恰来自**可以引用**（「2019 年的这张图」有意义，「今天的这张图」没有）。
+- **上游已有成熟可视化且比我们做得好** —— scorecard.dev、GitHub 原生图、ipinfo 的 Summarize IPs、CAIDA AS Core。**边际价值低。**
+- **本质是命令手册而非数据** —— traceroute / mtr / host / route / nets 这类。traceroute 结果是机器相关的一次性测量（从哪跳、ICMP 被墙与否、每个中间路由器的负载），**不可复现，画出来没有意义**。它们属于 `x-cmd.com/mod/<name>`，不是子页面。
+- **需要 key / 付费墙才能复现的数据** —— 除非是给合作方专用的子页面（像 shodan 那样），否则等于把内容锁死。
+- **数据源的 robots.txt 明确禁止 AI agent** —— bgp.tools 就是。
+- **数据源没有批量导出或许可不明** —— bgp.he.net 就是。
+- **超出 draw 的图表能力（力导向拓扑图）** —— 只引用不自研。
+
+> **目前已上线的 x-cmd.com 子页面**：`dbnomics` · `cve` · `cwe` · `gpg` · `ratelimit` · `skill0` · `ai` · `action` · `install` · `mod` · `pkg` · `theme`
+> （另有 `x-cmd/uptime`、`x-cmd/seo`、`x-cmd/terminal`、`x-cmd/browser` 四个内容仓建好但未上线。）
 
 ---
 
@@ -192,5 +261,5 @@ https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313
 
 有一条适用于本站每一张表的注意事项：**这些数字数的是分配条目，不是地址数。** 发出 100,774 个块的注册机构，发的块可能比发出更少块的机构更大或更小。下一页把两种 RIR 资源并排放，让这个区别变得可见。
 
-> CLI：`x ip calc` · `x ip cidr` · `x ip map` —— 见 [x-cmd.com/mod/ip](https://x-cmd.com/mod/ip)
+> CLI：`x ip cidr` · `x ip map` —— 见 [x-cmd.com/mod/ip](https://x-cmd.com/mod/ip)
 > 数据：[ftp.ripe.net](https://ftp.ripe.net/pub/stats/ripencc/) · [ftp.apnic.net](https://ftp.apnic.net/stats/apnic/) · [ftp.arin.net](https://ftp.arin.net/pub/stats/arin/) · [ftp.lacnic.net](https://ftp.lacnic.net/pub/stats/lacnic/) · [ftp.afrinic.net](https://ftp.afrinic.net/pub/stats/afrinic/)
