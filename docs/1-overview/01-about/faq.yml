@@ -2,13 +2,13 @@ id: x-1-overview-01-about
 
 data:
   - name:
-      en: Addresses, autonomous systems, and the five registries that hand them out
-      cn: 地址、自治系统，以及发放它们的那五个机构
+      en: "Addresses, autonomous systems, and the five registries that hand them out"
+      cn: "地址、自治系统，以及发放它们的那五个机构"
     qa:
       - id: address-vs-asn
         question:
-      en: What is the difference between an IP address and an ASN?
-      cn: IP 地址和 ASN 有什么区别？
+          en: "What is the difference between an IP address and an ASN?"
+          cn: "IP 地址和 ASN 有什么区别？"
         answer:
           en: >
             An address says where to deliver a packet; an ASN says which network announces the route to it. Routers do not carry addresses in their tables — they carry "to AS13335, via this neighbour". Every IP prefix belongs to exactly one ASN. The practical consequence: address space can be bought, transferred and resold, while an ASN cannot, because it is an identifier rather than a resource.
