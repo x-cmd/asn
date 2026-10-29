@@ -1,0 +1,20 @@
+id: x-2-registry-01-rir-allocation
+
+data:
+  - name:
+      en: Who hands out what
+      cn: 谁在分配什么
+    qa:
+      - id: which-rip
+        question:
+      en: Which registry hands out the most?
+      cn: 哪个注册机构发得最多？
+        answer:
+          en: >
+            It depends on what you count. RIPE NCC has the most ASNs (40,114) and the most IPv4 allocations (100,774). ARIN has fewer ASNs (33,123) but nearly as many IPv4 allocations (81,326) — bigger blocks, fewer operators. AFRINIC is smallest in both, which is the clearest argument for why regional registries exist at all.
+          cn: >
+            看你在数什么。RIPE NCC 的 ASN 最多（40,114），IPv4 分配条目也最多（100,774）。ARIN 的 ASN 少一些（33,123），IPv4 分配条目却接近（81,326）——块更大，运营者更少。AFRINIC 两项都最小，这恰恰是区域注册机构为何存在的最有力论据。
+        confidence: 10
+        reference:
+          - docs/2-registry/01-rir-allocation/en.md
+          - docs/2-registry/01-rir-allocation/cn.md
