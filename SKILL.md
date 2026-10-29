@@ -29,8 +29,8 @@ rir:
 ## 2. Use the `x ip` module
 
 ```bash
-x ip calc 10.0.0.0/8        # network arithmetic
-x ip cidr 10.0.0.1/24       # containing CIDR
+x ip cidr 10.0.0.1/24       # CIDR / special-use ranges
+x ip addr                     # local interfaces
 x ip map                    # local address map
 x ip -h                     # full help
 ```
