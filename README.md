@@ -12,7 +12,7 @@ This site reads those files and renders them as charts whose data lives in the U
 
 ### Addresses, autonomous systems, and the five registries that hand them out — [full page](docs/1-overview/01-about/en.md)
 
-<a href="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country"><img src="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country" width="680" alt="addresses-autonomous-systems-and-the-five-registries-that-hand-them-out"></a>
+<a href="https://x-cmd.com/draw?type=…&labels=…&values=…`"><img src="https://x-cmd.com/draw?type=…&labels=…&values=…`" width="680" alt="addresses-autonomous-systems-and-the-five-registries-that-hand-them-out"></a>
 
 ### Who hands out what, and what that shape means — [full page](docs/2-registry/01-rir-allocation/en.md)
 
