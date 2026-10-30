@@ -173,12 +173,15 @@ draw 一共十三种图：`pie bar hbar line area radar gauge scatter combo sank
 curl -s https://ftp.apnic.net/stats/apnic/delegated-apnic-latest
 
 # 2. 变成图表 URL，参数是明文的，AI 也能拼
+```
+
 ```text
 https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country
 ```
 
 <a href="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country"><img src="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country" width="780" alt=""></a>
 
+```sh
 # 3. 或者让 AI agent 来
 #    用 draw skill：https://raw.githubusercontent.com/x-cmd/draw/main/SKILL.md
 ```
