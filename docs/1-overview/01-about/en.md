@@ -173,12 +173,15 @@ The whole mechanism of this site is one thing: turn data into a URL with the par
 curl -s https://ftp.apnic.net/stats/apnic/delegated-apnic-latest
 
 # 2. turn it into a chart URL — the parameters are plain text, so an AI can build one too
+```
+
 ```text
 https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country
 ```
 
 <a href="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country"><img src="https://x-cmd.com/draw?type=hbar&labels=CN,JP,IN&values=214719744,54388992,26313216&title=IPv4%20by%20country" width="780" alt="addresses-autonomous-systems"></a>
 
+```sh
 # 3. or let an AI agent do it
 #    with the draw skill: https://raw.githubusercontent.com/x-cmd/draw/main/SKILL.md
 ```
