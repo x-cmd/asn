@@ -1,0 +1,26 @@
+# Website sidebar group config for this directory. Nested groups use their own _sidebar.yml.
+# @property {string} <icon> - Required. UnoCSS icon class, e.g. i-lucide:store.
+#   - Lucide icon names: curl -fsSL https://cdn.jsdelivr.net/npm/lucide-static@latest/icon-nodes.json | jq -r 'keys[]'
+# @property {Record<string, string>} <text> - Required. Localized group names (plain text).
+
+<icon>: i-lucide:landmark
+<text>:
+  en: The registries
+  zh: 注册机构
+  cs: Registry
+  de: Die Register
+  es: Los registros
+  fr: Les registres
+  id: Registri
+  it: I registri
+  ja: 登録機関
+  ko: 등록 기관
+  pl: Rejestry
+  ro: Registrele
+  ru: Реестры
+  th: หน่วยงานลงทะเบียน
+  tr: Kayıt kurumları
+  uk: Реєстри
+  vi: Cơ quan đăng ký
+  pt-br: Os registros
+  pt-pt: Os registos
